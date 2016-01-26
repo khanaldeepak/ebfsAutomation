@@ -23,19 +23,48 @@ public class RunTest {
 	 
   }
   
-  @Test
+  @Test(enabled=false)
   public void LogoPresent(){
 	  Home home = new Home(driver);
 	  home.Logo();
   }
   
-  @Test
+  @Test(enabled=false)
   public void NavMenu(){
 	  Home home = new Home(driver);
 	  home.NavLinks();
   }
   
-  @Test 
+  @Test(enabled=false)
+  public void InvalidEmailAccount(){
+	  Home home = new Home(driver);
+	  home.SignInLinkClick();
+	  LogInPage login = new LogInPage(driver);
+	  Assert.assertEquals(login.InvalidEmail("andyjainson"), "rgba(255, 241, 242, 1)");
+	  System.out.println(login.InvalidEmail("andyjainson"));
+	  
+  }
+  @Test(enabled=false)
+  public void ExistedEmailAccount(){
+	  Home home = new Home(driver);
+	  home.SignInLinkClick();
+	  LogInPage login = new LogInPage(driver);
+	  Assert.assertEquals(login.ExistedEmail("rabbani@rabbani.com"), "An account using this email address has already been registered. Please enter a valid password or request a new one.");
+	    
+  }
+  @Test (enabled=false)
+  public void CreateNewValidAccount(){
+	  Home home = new Home(driver);
+	  home.SignInLinkClick();
+	  LogInPage login = new LogInPage(driver);
+	  String titl = login.CreateAccountTitle();
+	  Assert.assertEquals(titl, "CREATE AN ACCOUNT");
+	  login.CreateAccount("saymeoneagain@gmail.com");
+	  CreateAccountPage userinfo = new CreateAccountPage(driver);
+	  String valid = userinfo.CreateTitleValid();
+	  Assert.assertEquals(valid, "YOUR PERSONAL INFORMATION");
+  }
+  @Test (enabled=false)
   public void CreateNewAccount(){
 	  Home home = new Home(driver);
 	  home.SignInLinkClick();
@@ -64,6 +93,15 @@ public class RunTest {
 	  String titl = login.CreateAccountTitle();
 	  Assert.assertEquals(titl, "CREATE AN ACCOUNT");
 	  login.LogIn("saymeoce@gmail.com", "kolykoly");
+  }
+  
+  @Test(enabled=true)
+  public void InvalidEmailLogin(){
+	  Home home = new Home(driver);
+	  home.SignInLinkClick();
+	  LogInPage login = new LogInPage(driver);
+	  
+	  Assert.assertEquals(login.InvalidEmailLogin("idontknow", "123456789"), "There is 1 error Invalid email address.");
   }
   
   @Test(enabled=false)
